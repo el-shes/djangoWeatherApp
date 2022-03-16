@@ -7,7 +7,7 @@ from django.shortcuts import render
 
 def weather_view(request):
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units={}&appid=110a6ca59b063163742ebf7ff21d3e04'
-    city = 'London'
+    city = 'Kyiv'
 
     r = requests.get(url.format(city, 'metric')).json()
     city_weather = {
