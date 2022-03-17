@@ -1,6 +1,5 @@
 import requests
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from .models import City
@@ -59,3 +58,8 @@ def weather_view(request):
     context = {'weather_data': weather_data, 'form': form, 'message': user_message, 'message_class': message_class}
 
     return render(request, 'weatherApp/weather.html', context)
+
+
+def delete_city(request, city_name):
+    City.objects.get(name=city_name).delete()
+    return redirect('home')
