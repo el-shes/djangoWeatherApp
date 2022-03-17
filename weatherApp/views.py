@@ -4,11 +4,18 @@ from django.shortcuts import render
 
 # Create your views here.
 from .models import City
+from .forms import CityForm
 
 
 def weather_view(request):
     url = 'https://api.openweathermap.org/data/2.5/weather?q={}&units={}&appid=110a6ca59b063163742ebf7ff21d3e04'
     city = 'Shanghai'
+
+    if request.method == 'POST':
+        form = CityForm(request.POST)
+        form.save()
+
+    form = CityForm()
 
     weather_data = []
 
@@ -25,6 +32,6 @@ def weather_view(request):
         }
         weather_data.append(city_weather)
 
-    context = {'weather_data': weather_data}
+    context = {'weather_data': weather_data, 'form' : form}
 
     return render(request, 'weatherApp/weather.html', context)
