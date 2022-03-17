@@ -12,6 +12,8 @@ def weather_view(request):
     city = 'Shanghai'
 
     err_msg = ''
+    user_message = ''
+    message_class = ''
 
     if request.method == 'POST':
         form = CityForm(request.POST)
@@ -23,7 +25,6 @@ def weather_view(request):
             if not existing_city_count:
                 # checking valid city
                 r = requests.get(url.format(new_city, 'metric')).json()
-                print(r)
                 if r['cod'] == 200:
                     form.save()
                 else:
@@ -31,7 +32,12 @@ def weather_view(request):
             else:
                 err_msg = 'City already in the database'
 
-    print(err_msg)
+        if err_msg:
+            user_message = err_msg
+            message_class = 'is-danger'
+        else:
+            user_message = 'City added successfully!'
+            message_class = 'is-success'
 
     form = CityForm()
 
@@ -50,6 +56,6 @@ def weather_view(request):
         }
         weather_data.append(city_weather)
 
-    context = {'weather_data': weather_data, 'form': form}
+    context = {'weather_data': weather_data, 'form': form, 'message': user_message, 'message_class': message_class}
 
     return render(request, 'weatherApp/weather.html', context)
