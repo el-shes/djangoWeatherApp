@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete {{ city_name }}</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+</head>
+<body>
+    <div class="header-bar">
+    <a href="{% url 'home' %}">&#8592; Back</a>
+</div>
+
+    <div class="card-body">
+    <form method="POST">
+            {% csrf_token  %}
+            <p>Are you sure you want to delete the city? "{{ city_name }}"</p>
+            <input class="button" type="submit" value="Delete"/>
+    </form>
+    </div>
+</body>
+</html>

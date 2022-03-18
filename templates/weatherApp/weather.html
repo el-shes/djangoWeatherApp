@@ -6,48 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"/>
 </head>
 
 <body>
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    What's the weather like?
-                </h1>
-            </div>
-        </div>
-    </section>
-    <section class="section">
+<section class="hero is-primary">
+    <div class="hero-body">
         <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                {{ form.name }}
-                            </div>
-                            <div class="control">
-                                <button type="submit" class="button is-info">
-                                    Add City
-                                </button>
-                            </div>
+            <h1 class="title">
+                What's the weather like?
+            </h1>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="field has-addons">
+                        <div class="control is-expanded">
+                            {{ form.name }}
                         </div>
-                        {% if message %}
-                            <div class="notification {{ message_class }}">{{ message }}</div>
-                        {% endif %}
-                    </form>
-                </div>
+                        <div class="control">
+                            <button type="submit" class="button is-info">
+                                Add City
+                            </button>
+                        </div>
+                    </div>
+                    {% if message %}
+                        <div class="notification {{ message_class }}">{{ message }}</div>
+                    {% endif %}
+                </form>
             </div>
         </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-offset-4 is-4">
-                    {% for city_weather in weather_data %}
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-offset-4 is-4">
+                {% for city_weather in weather_data %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
@@ -60,25 +60,33 @@
                                     <p>
                                         <span class="title">{{ city_weather.city }}</span>
                                         <br>
-                                        <span class="subtitle">{{ city_weather.temperature}} °C</span>
+                                        <span class="subtitle">{{ city_weather.temperature }} °C</span>
                                         <br> {{ city_weather.description }}
                                     </p>
                                 </div>
                             </div>
                             <div class="media-right">
-                                <a href="{% url 'delete_city' city_weather.city %}">
-                                    <button class="delete"></button>
-                                </a>
+                                <div class="block level-right">
+                                    <a href="{% url 'delete_city' city_weather.city %}">
+                                        <button class="delete"></button>
+                                    </a>
+                                </div>
+                                <div class="block">
+                                    <a href="{% url 'seven_days_weather' city_weather.city city_weather.lon city_weather.lat %}">
+                                        <button class="button is-primary is-rounded">7 days</button>
+                                    </a>
+                                </div>
+
                             </div>
                         </article>
                     </div>
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </section>
-    <footer class="footer">
-    </footer>
+    </div>
+</section>
+<footer class="footer">
+</footer>
 </body>
 
 </html>
