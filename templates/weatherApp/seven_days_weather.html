@@ -2,6 +2,11 @@
 {% block content %}
 
 <section class="section">
+    <div class="header-bar">
+        <button class="button is-light">
+            <a href="{% url 'home' %}" style="color: #00d1b2">&#8592; Back</a>
+        </button>
+    </div>
     <div class="content">
         <p>
             <span class="title">{{ city_name }}</span>
@@ -29,6 +34,12 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+    <div class="container">
+        <div class="fieldBox" style="text-align: center">
+            <span class="tag is-warning">Mean daily temperature for a week : {{ mean_week_day_temperature }} °C</span>
+            <span class="tag is-link">Mean night temperature for a week: {{ mean_week_night_temperature }} °C</span>
+        </div>
     </div>
 </section>
 

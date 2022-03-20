@@ -48,7 +48,6 @@ def data_weather_collection(url):
 
 
 def form_validation(form, url, error_messages):
-
     if form.is_valid():
         # duplicate city check
         new_city = form.cleaned_data['name']
@@ -95,4 +94,16 @@ def seven_days_weather(request, lon, lat, city_name):
                            'description': day['weather'][0]['description'],
                            'icon': day['weather'][0]['icon']})
 
-    return render(request, 'weatherApp/seven_days_weather.html', {'daily_info': daily_info, 'city_name': city_name})
+    mean_week_day_temperature, mean_week_night_temperature = calc_mean_temperature(daily_info)
+
+    return render(request, 'weatherApp/seven_days_weather.html', {'daily_info': daily_info, 'city_name': city_name,
+                                                                  'mean_week_day_temperature': mean_week_day_temperature,
+                                                                  'mean_week_night_temperature': mean_week_night_temperature})
+
+
+def calc_mean_temperature(daily_info):
+    week_day_temperature = [day['temp_day'] for day in daily_info]
+    week_night_temperature = [day['temp_night'] for day in daily_info]
+    mean_week_day_temperature = round(sum(week_day_temperature) / 7)
+    mean_week_night_temperature = round(sum(week_night_temperature) / 7)
+    return mean_week_day_temperature, mean_week_night_temperature
