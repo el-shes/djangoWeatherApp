@@ -1,0 +1,40 @@
+{% extends 'weatherApp/main.html' %}
+{% block content %}
+
+<section class="section">
+    <div class="header-bar">
+        <button class="button is-light">
+            <a href="{% url 'home' %}" style="color: #00d1b2">&#8592; Back</a>
+        </button>
+    </div>
+    <div class="content">
+        <p>
+            <span class="title">{{ city_name }}</span>
+        </p>
+    </div>
+    <div class="columns" style="overflow-x: auto">
+        {% for hour in hourly_info %}
+            <div class="column">
+                <div class="box" style="height: 350px; min-width: 200px">
+                    <article class="media">
+                        <div class="media-content">
+                            <div class="date-icon" style="height: 60px;"> <b>{{ hour.hour }}:00 </b></div>
+                            <div class="content">
+                                <p>
+                                    <figure class="image is-50x50">
+                                        <img src="https://openweathermap.org/img/w/{{ hour.icon }}.png" alt="Image">
+                                    </figure>
+                                    <span class="subtitle"> {{ hour.temp }} °C</span>
+                                    <br> {{ hour.description }}
+                                    <br> humidity: {{ hour.humidity }} %
+                                    <br> pressure: {{ hour.pressure }} p
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}

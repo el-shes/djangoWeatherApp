@@ -58,6 +58,11 @@
                                         <button class="button is-primary is-rounded">7 days</button>
                                     </a>
                                 </div>
+                                <div class="block">
+                                    <a href="{% url 'hourly_weather' city_weather.city city_weather.lon city_weather.lat %}">
+                                        <button class="button is-link is-rounded">Hourly</button>
+                                    </a>
+                                </div>
 
                             </div>
                         </article>

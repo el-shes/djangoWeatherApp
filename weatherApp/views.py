@@ -107,3 +107,22 @@ def calc_mean_temperature(daily_info):
     mean_week_day_temperature = round(sum(week_day_temperature) / 7)
     mean_week_night_temperature = round(sum(week_night_temperature) / 7)
     return mean_week_day_temperature, mean_week_night_temperature
+
+
+def hourly_weather(request, lon, lat, city_name):
+    url = 'https://api.openweathermap.org/data/2.5/onecall?lon={}&lat={' \
+          '}&units=metric&appid=110a6ca59b063163742ebf7ff21d3e04&exclude=current,minutely,daily,alerts '
+
+    r = requests.get(url.format(lon, lat)).json()
+
+    hourly_info = []
+    for hour in r['hourly']:
+        hourly_info.append({'hour': datetime.datetime.fromtimestamp(hour['dt']).hour,
+                            'temp': round(hour['temp']),
+                            'weather': hour['weather'][0]['main'],
+                            'description': hour['weather'][0]['description'],
+                            'pressure': hour['pressure'],
+                            'humidity': hour['humidity'],
+                            'icon': hour['weather'][0]['icon']})
+
+    return render(request, 'weatherApp/hourly_weather.html', {'hourly_info': hourly_info, 'city_name': city_name})
