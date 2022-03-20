@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Seven day forecast</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css"/>
-</head>
-<body>
+{% extends 'weatherApp/main.html' %}
+{% block content %}
+
 <section class="section">
     <div class="content">
         <p>
@@ -21,12 +16,12 @@
                             <div class="date-icon" style="height: 80px;"> <b>{{ day.date }}, {{ day.day_of_week }} </b></div>
                             <div class="content">
                                 <p>
-                                <figure class="image is-50x50">
-                                    <img src="https://openweathermap.org/img/w/{{ day.icon }}.png" alt="Image">
-                                </figure>
-                                <span class="subtitle">Day {{ day.temp_day }} °C</span>
-                                <br> <span class="subtitle">Night {{ day.temp_night }} °C</span>
-                                <br> {{ day.description }}
+                                    <figure class="image is-50x50">
+                                        <img src="https://openweathermap.org/img/w/{{ day.icon }}.png" alt="Image">
+                                    </figure>
+                                    <span class="subtitle">Day {{ day.temp_day }} °C</span>
+                                    <br> <span class="subtitle">Night {{ day.temp_night }} °C</span>
+                                    <br> {{ day.description }}
                                 </p>
                             </div>
                         </div>
@@ -36,5 +31,5 @@
         {% endfor %}
     </div>
 </section>
-</body>
-</html>
+
+{% endblock content %}
